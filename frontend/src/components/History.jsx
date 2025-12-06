@@ -69,25 +69,41 @@ export default function History() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <nav className="bg-white shadow-sm border-b border-gray-200">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-purple-50 to-pink-50">
+      {/* Animated Header */}
+      <nav className="bg-white/80 backdrop-blur-xl shadow-lg border-b border-purple-100 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <h1 className="text-xl font-bold text-primary-600">
-              Optimization History
-            </h1>
-            <div className="flex gap-4">
+          <div className="flex justify-between items-center h-20">
+            <div className="flex items-center gap-3 animate-fadeInLeft">
+              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg transform hover:rotate-12 transition-transform duration-300">
+                <svg className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                  History
+                </h1>
+                <p className="text-sm text-gray-600">View your past optimizations</p>
+              </div>
+            </div>
+            <div className="flex gap-3 animate-fadeInRight">
               <button
                 onClick={() => navigate('/dashboard')}
-                className="text-gray-600 hover:text-primary-600 font-medium"
+                className="px-5 py-2.5 bg-white text-purple-600 rounded-xl font-semibold hover:bg-purple-50 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105 flex items-center gap-2"
               >
-                Back to Dashboard
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Dashboard
               </button>
               <button
                 onClick={handleSignOut}
-                className="text-gray-600 hover:text-red-600 font-medium"
+                className="px-5 py-2.5 bg-white text-red-600 rounded-xl font-semibold hover:bg-red-50 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105 flex items-center gap-2"
               >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
                 Sign Out
               </button>
             </div>
@@ -95,89 +111,138 @@ export default function History() {
         </div>
       </nav>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {loading ? (
-          <div className="text-center py-12">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
-            <p className="mt-4 text-gray-600">Loading history...</p>
+          <div className="flex flex-col items-center justify-center py-20 animate-fadeInUp">
+            <div className="relative">
+              <div className="w-20 h-20 border-4 border-purple-200 border-t-purple-600 rounded-full animate-spin"></div>
+              <div className="absolute inset-0 w-20 h-20 border-4 border-transparent border-t-pink-400 rounded-full animate-spin animation-delay-150"></div>
+            </div>
+            <p className="mt-6 text-xl text-gray-600 font-medium">Loading your history...</p>
           </div>
         ) : error ? (
-          <div className="bg-red-50 border border-red-200 text-red-600 px-6 py-4 rounded-lg">
-            {error}
+          <div className="bg-red-50 border-2 border-red-200 text-red-600 px-8 py-6 rounded-3xl shadow-lg animate-shake">
+            <div className="flex items-center gap-3">
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              {error}
+            </div>
           </div>
         ) : history.length === 0 ? (
-          <div className="text-center py-12">
-            <svg
-              className="mx-auto h-12 w-12 text-gray-400"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-              />
-            </svg>
-            <h3 className="mt-4 text-lg font-medium text-gray-900">No history yet</h3>
-            <p className="mt-2 text-gray-600">Generate your first resume optimization to see it here</p>
+          <div className="text-center py-20 animate-fadeInUp">
+            <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-purple-100 to-pink-100 rounded-3xl mb-6 shadow-xl">
+              <svg
+                className="w-14 h-14 text-purple-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                />
+              </svg>
+            </div>
+            <h3 className="text-3xl font-bold text-gray-900 mb-3">No History Yet</h3>
+            <p className="text-xl text-gray-600 mb-8 max-w-md mx-auto">
+              Start by generating your first resume optimization to see it here
+            </p>
             <button
               onClick={() => navigate('/dashboard')}
-              className="btn-primary mt-6"
+              className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 inline-flex items-center gap-3"
             >
-              Go to Dashboard
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              Create Your First One
             </button>
           </div>
         ) : (
-          <div className="grid lg:grid-cols-3 gap-6">
+          <div className="grid lg:grid-cols-3 gap-8">
             {/* History List */}
             <div className="lg:col-span-1 space-y-4">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">
-                Past Optimizations ({history.length})
-              </h2>
-              {history.map((item) => (
-                <div
-                  key={item.id}
-                  onClick={() => setSelectedItem(item)}
-                  className={`card cursor-pointer transition-all hover:shadow-xl ${
-                    selectedItem?.id === item.id
-                      ? 'ring-2 ring-primary-500 bg-primary-50'
-                      : ''
-                  }`}
-                >
-                  <div className="flex justify-between items-start mb-2">
-                    <p className="text-sm text-gray-500">
-                      {formatDate(item.created_at)}
-                    </p>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        handleDelete(item.id)
-                      }}
-                      className="text-red-500 hover:text-red-700 text-sm"
-                    >
-                      Delete
-                    </button>
+              <div className="flex items-center justify-between mb-6 animate-fadeInLeft">
+                <h2 className="text-2xl font-bold text-gray-900">
+                  Past Optimizations
+                </h2>
+                <span className="px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-bold shadow-lg">
+                  {history.length}
+                </span>
+              </div>
+              <div className="space-y-4 max-h-[calc(100vh-250px)] overflow-y-auto custom-scrollbar pr-2">
+                {history.map((item, index) => (
+                  <div
+                    key={item.id}
+                    onClick={() => setSelectedItem(item)}
+                    className={`group cursor-pointer transition-all duration-300 animate-fadeInLeft ${
+                      selectedItem?.id === item.id
+                        ? 'scale-105'
+                        : 'hover:scale-102'
+                    }`}
+                    style={{ animationDelay: `${index * 50}ms` }}
+                  >
+                    <div className={`bg-white/70 backdrop-blur-xl rounded-2xl shadow-lg p-6 border-2 transition-all duration-300 ${
+                      selectedItem?.id === item.id
+                        ? 'border-purple-500 shadow-2xl bg-gradient-to-br from-purple-50 to-pink-50'
+                        : 'border-transparent hover:border-purple-200 hover:shadow-xl'
+                    }`}>
+                      <div className="flex justify-between items-start mb-3">
+                        <div className="flex items-center gap-2 text-sm text-gray-500">
+                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                          {formatDate(item.created_at)}
+                        </div>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            handleDelete(item.id)
+                          }}
+                          className="p-2 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-lg transition-all duration-200 transform hover:scale-110"
+                        >
+                          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
+                        </button>
+                      </div>
+                      <p className="text-sm text-gray-700 line-clamp-3 leading-relaxed">
+                        {item.job_description?.substring(0, 120)}...
+                      </p>
+                      {selectedItem?.id === item.id && (
+                        <div className="mt-3 flex items-center gap-2 text-purple-600 font-semibold text-sm">
+                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                          Selected
+                        </div>
+                      )}
+                    </div>
                   </div>
-                  <p className="text-sm text-gray-700 line-clamp-3">
-                    {item.job_description?.substring(0, 100)}...
-                  </p>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
 
             {/* Details Panel */}
             <div className="lg:col-span-2">
               {selectedItem ? (
-                <div className="space-y-6">
+                <div className="space-y-6 animate-fadeInRight">
                   {/* Job Description */}
-                  <div className="card">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                      Job Description
-                    </h3>
-                    <div className="bg-gray-50 rounded-lg p-4 max-h-[200px] overflow-y-auto">
-                      <pre className="whitespace-pre-wrap text-sm text-gray-800">
+                  <div className="bg-white/70 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-purple-100 transform hover:scale-[1.01] transition-all duration-300">
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg">
+                        <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                      <h3 className="text-2xl font-bold text-gray-900">
+                        Job Description
+                      </h3>
+                    </div>
+                    <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-6 max-h-[250px] overflow-y-auto border border-blue-100 custom-scrollbar">
+                      <pre className="whitespace-pre-wrap text-sm text-gray-800 leading-relaxed">
                         {selectedItem.job_description}
                       </pre>
                     </div>
@@ -185,11 +250,18 @@ export default function History() {
 
                   {/* Optimized Resume */}
                   {selectedItem.optimized_resume && (
-                    <div className="card">
-                      <div className="flex justify-between items-center mb-4">
-                        <h3 className="text-lg font-semibold text-gray-900">
-                          Optimized Resume
-                        </h3>
+                    <div className="bg-white/70 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-purple-100 transform hover:scale-[1.01] transition-all duration-300">
+                      <div className="flex justify-between items-center mb-6">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg">
+                            <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                          </div>
+                          <h3 className="text-2xl font-bold text-gray-900">
+                            Optimized Resume
+                          </h3>
+                        </div>
                         <button
                           onClick={() =>
                             handleDownload(
@@ -197,13 +269,16 @@ export default function History() {
                               `resume_${selectedItem.id}.txt`
                             )
                           }
-                          className="text-primary-600 hover:text-primary-700 font-medium text-sm"
+                          className="px-4 py-2 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-xl font-semibold hover:from-purple-600 hover:to-purple-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105 flex items-center gap-2"
                         >
+                          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                          </svg>
                           Download
                         </button>
                       </div>
-                      <div className="bg-gray-50 rounded-lg p-4 max-h-[400px] overflow-y-auto">
-                        <pre className="whitespace-pre-wrap text-sm text-gray-800">
+                      <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6 max-h-[450px] overflow-y-auto border border-purple-100 custom-scrollbar">
+                        <pre className="whitespace-pre-wrap text-sm text-gray-800 font-mono leading-relaxed">
                           {selectedItem.optimized_resume}
                         </pre>
                       </div>
@@ -212,11 +287,18 @@ export default function History() {
 
                   {/* Cover Letter */}
                   {selectedItem.cover_letter && (
-                    <div className="card">
-                      <div className="flex justify-between items-center mb-4">
-                        <h3 className="text-lg font-semibold text-gray-900">
-                          Cover Letter
-                        </h3>
+                    <div className="bg-white/70 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-pink-100 transform hover:scale-[1.01] transition-all duration-300">
+                      <div className="flex justify-between items-center mb-6">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-rose-500 rounded-xl flex items-center justify-center shadow-lg">
+                            <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                          </div>
+                          <h3 className="text-2xl font-bold text-gray-900">
+                            Cover Letter
+                          </h3>
+                        </div>
                         <button
                           onClick={() =>
                             handleDownload(
@@ -224,13 +306,16 @@ export default function History() {
                               `cover_letter_${selectedItem.id}.txt`
                             )
                           }
-                          className="text-primary-600 hover:text-primary-700 font-medium text-sm"
+                          className="px-4 py-2 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-xl font-semibold hover:from-pink-600 hover:to-pink-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105 flex items-center gap-2"
                         >
+                          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                          </svg>
                           Download
                         </button>
                       </div>
-                      <div className="bg-gray-50 rounded-lg p-4 max-h-[400px] overflow-y-auto">
-                        <pre className="whitespace-pre-wrap text-sm text-gray-800">
+                      <div className="bg-gradient-to-br from-pink-50 to-rose-50 rounded-2xl p-6 max-h-[450px] overflow-y-auto border border-pink-100 custom-scrollbar">
+                        <pre className="whitespace-pre-wrap text-sm text-gray-800 font-mono leading-relaxed">
                           {selectedItem.cover_letter}
                         </pre>
                       </div>
@@ -238,22 +323,25 @@ export default function History() {
                   )}
                 </div>
               ) : (
-                <div className="card h-full flex items-center justify-center">
-                  <div className="text-center text-gray-500">
-                    <svg
-                      className="mx-auto h-12 w-12 text-gray-400"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"
-                      />
-                    </svg>
-                    <p className="mt-4">Select an item to view details</p>
+                <div className="bg-white/70 backdrop-blur-xl rounded-3xl shadow-2xl p-12 h-full flex items-center justify-center border border-purple-100 animate-fadeInRight">
+                  <div className="text-center">
+                    <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-purple-100 to-pink-100 rounded-3xl mb-6 shadow-xl">
+                      <svg
+                        className="w-12 h-12 text-purple-400"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"
+                        />
+                      </svg>
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Select an Item</h3>
+                    <p className="text-gray-600">Click on any history item to view details</p>
                   </div>
                 </div>
               )}
