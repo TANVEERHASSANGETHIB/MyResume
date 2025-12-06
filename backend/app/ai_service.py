@@ -14,9 +14,10 @@ OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 # List of models to try (cheap models first)
 MODELS = [
- 
+    "google/gemini-2.0-flash-exp:free",  # Free
     "meta-llama/llama-3.2-3b-instruct:free",  # Free
-
+    "openai/gpt-3.5-turbo",  # Paid but very cheap ($0.0005 per request)
+    "google/gemini-flash-1.5",  # Paid but cheap
 ]
 
 print(f"AI Service - OPENROUTER_API_KEY loaded: {bool(OPENROUTER_API_KEY)}")
